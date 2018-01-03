@@ -8,14 +8,13 @@ from flask import Flask, request, send_file
 from fsm import TocBot
 
 API_TOKEN = '388892866:AAGRDwj7cKFmZSl8Sg-QT8wJQ02ygKjFFAE'
-WEBHOOK_URL = 'https://2c956302.ngrok.io/hook'
+WEBHOOK_URL = 'https://3a19c596.ngrok.io/hook'
 
 app = Flask(__name__)
 bot = telegram.Bot(token=API_TOKEN)
 machine = TocBot(
     states=[
         'user',
-        'first',
         'North',
         'Mid',
         'South',
@@ -36,37 +35,37 @@ machine = TocBot(
     ],
     
     transitions=[
-        
         {
             'trigger':'advance',
             'source':'user',
-            'dest':'first'
+            'dest':'user',
+            'conditions':'is_going_to_user'
         },
-# which area to go 
+        # which area to go 
         {
             'trigger': 'advance',
-            'source': 'first',
+            'source': 'user',
             'dest': 'North',
             'conditions': 'is_going_to_North'
         },
         
         {
             'trigger': 'advance',
-            'source': 'first',
+            'source': 'user',
             'dest': 'Mid',
             'conditions': 'is_going_to_Mid'
         },
         
         {
             'trigger':'advance',
-            'source':'first',
+            'source':'user',
             'dest':'South',
             'conditions': 'is_going_to_South'
         },
         
         {
             'trigger':'advance',
-            'source':'first',
+            'source':'user',
             'dest':'East',
             'conditions':'is_going_to_East'
         },
@@ -175,8 +174,8 @@ machine = TocBot(
                 'Eshop',
                 'Efun'
                 ],
-            'dest':'first',
-            'conditions':'is_going_to_first'
+            'dest':'user',
+            'conditions':'is_going_to_ques'
         },
         
         #end

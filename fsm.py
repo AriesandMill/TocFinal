@@ -10,6 +10,12 @@ class TocBot(Machine):
         )
     
     #is going to function
+    def is_going_to_user(self,update):
+        text = update.message.text
+        if(text == '北部' or text =='中部' or text == '南部' or text == '東部'):
+            return False
+        else :
+            return True
     
     def is_going_to_North(self, update):
         text = update.message.text
@@ -75,16 +81,16 @@ class TocBot(Machine):
         text = update.message.text
         return text.lower() == '娛樂'
     
-    def is_going_to_first(self,update):
+    def is_going_to_ques(self,update):
         text = update.message.text
         return text.lower() == '是'
 
     def is_going_to_final(self,update):
         text = update.message.text
         return text.lower() == '否'
-    #on enter / on exit function
     
-    def on_enter_first(self,update):
+    #on enter / on exit function
+    def on_enter_user(self,update):
         update.message.reply_text("歡迎使用traveler,請問您想去哪裡旅遊?")
 
     def on_enter_North(self, update):
